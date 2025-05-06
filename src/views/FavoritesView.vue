@@ -3,10 +3,14 @@ import { ref, onMounted, computed } from 'vue'
 import type { Character } from '@/types/Character'
 import { fetchCharacters } from '@/composables/useCharacters'
 import { useCharacterFilter } from '@/composables/useCharacterFilter'
+import { useFavorites } from '@/composables/useFavorites'
 import Filters from '@/components/Filters.vue'
+import CharacterCard from '@/components/CharacterCard.vue'
 
 const allCharacters = ref<Character[]>([])
 const isLoading = ref(true)
+
+const { isFavorite, toggleFavorite, getFavoriteCharacters } = useFavorites()
 
 onMounted(async () => {
   try {
@@ -22,8 +26,12 @@ onMounted(async () => {
 const { filteredCharacters } = useCharacterFilter(allCharacters)
 
 const favoriteCharacters = computed(() => {
-  return filteredCharacters.value.filter(character => character.isFavorite)
+  return getFavoriteCharacters(filteredCharacters.value)
 })
+
+const handleToggleFavorite = (character: Character) => {
+  toggleFavorite(character)
+}
 </script>
 
 <template>
@@ -40,13 +48,12 @@ const favoriteCharacters = computed(() => {
     </div>
 
     <ul v-else class="character-list">
-      <li v-for="character in favoriteCharacters" :key="character.id" class="character-item">
-        <img :src="character.image" :alt="character.name" class="character-image" />
-        <div class="character-info">
-          <h3>{{ character.name }}</h3>
-          <p>Gender: {{ character.gender }}</p>
-          <p>Created: {{ new Date(character.created).toLocaleDateString() }}</p>
-        </div>
+      <li v-for="character in favoriteCharacters" :key="character.id">
+        <CharacterCard
+          :character="character"
+          :is-favorite="true"
+          @toggle-favorite="handleToggleFavorite"
+        />
       </li>
     </ul>
   </div>
@@ -72,40 +79,7 @@ const favoriteCharacters = computed(() => {
   gap: 20px;
 }
 
-.character-item {
-  display: flex;
-  gap: 15px;
-  padding: 15px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background: white;
-  transition: transform 0.2s;
-}
-
-.character-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.character-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.character-info {
-  flex: 1;
-}
-
-.character-info h3 {
-  margin: 0 0 8px 0;
-  color: #333;
-}
-
-.character-info p {
-  margin: 4px 0;
-  color: #666;
-  font-size: 0.9em;
+.character-list li {
+  list-style: none;
 }
 </style>
