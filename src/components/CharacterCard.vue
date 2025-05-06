@@ -13,6 +13,10 @@ const emit = defineEmits<{
 const handleToggleFavorite = () => {
   emit('toggleFavorite', props.character)
 }
+
+const getStatusColor = (status: string) => {
+  return status.toLowerCase() === 'alive' ? '#4caf50' : '#f44336'
+}
 </script>
 
 <template>
@@ -35,6 +39,8 @@ const handleToggleFavorite = () => {
     <img :src="character.image" :alt="character.name" class="character-image" />
     <div class="character-info">
       <h3>{{ character.name }}</h3>
+        <span class="status-dot" :style="{ backgroundColor: getStatusColor(character.status) }"></span>
+        <span class="status-text">{{ character.status }}</span>
       <p>Gender: {{ character.gender }}</p>
       <p>Created: {{ new Date(character.created).toLocaleDateString() }}</p>
     </div>
@@ -85,6 +91,20 @@ const handleToggleFavorite = () => {
   font-size: 0.9em;
 }
 
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-text {
+  color: #666;
+  font-size: 0.9em;
+  text-transform: capitalize;
+  margin-left: 5px;
+}
+
 .favorite-button {
   position: absolute;
   top: 10px;
@@ -132,6 +152,10 @@ const handleToggleFavorite = () => {
 
   .character-info {
     width: 100%;
+  }
+
+  .status-container {
+    justify-content: center;
   }
 
   .favorite-button {
