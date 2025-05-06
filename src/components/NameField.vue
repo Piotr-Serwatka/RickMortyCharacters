@@ -1,5 +1,5 @@
 <script setup>
-import { useFilterStore } from '@/store/useFilterStore.js'
+import { useFilterStore } from '@/store/useFilterStore.ts'
 const filterStore = useFilterStore()
 </script>
 
