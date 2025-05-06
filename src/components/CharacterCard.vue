@@ -47,15 +47,16 @@ const handleToggleFavorite = () => {
   gap: 15px;
   padding: 15px;
   border: 1px solid #eee;
-  border-radius: 8px;
+  border-radius: 4px;
   background: white;
-  transition: transform 0.2s;
+  transition: all 0.2s ease;
   position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .character-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .character-image {
@@ -63,15 +64,19 @@ const handleToggleFavorite = () => {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .character-info {
   flex: 1;
+  min-width: 0; /* Prevents text overflow */
 }
 
 .character-info h3 {
   margin: 0 0 8px 0;
   color: #333;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 
 .character-info p {
@@ -88,7 +93,7 @@ const handleToggleFavorite = () => {
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.2s ease;
   z-index: 1;
 }
 
@@ -100,14 +105,57 @@ const handleToggleFavorite = () => {
   width: 24px;
   height: 24px;
   color: #ccc;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .favorite-button.is-favorite .star-icon {
-  color: #ffd700;
+  color: #1976d2;
 }
 
 .favorite-button:hover .star-icon {
-  color: #ffd700;
+  color: #1976d2;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .character-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .character-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .character-info {
+    width: 100%;
+  }
+
+  .favorite-button {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .character-card {
+    padding: 15px;
+  }
+
+  .character-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .character-info h3 {
+    font-size: 1em;
+  }
+
+  .character-info p {
+    font-size: 0.85em;
+  }
 }
 </style> 
