@@ -21,6 +21,12 @@ export function useCharacterFilter(characters: Ref<Character[]>) {
       )
     }
 
+    if (filterStore.status) {
+      result = result.filter(character =>
+        character.status.toLowerCase() === filterStore.status.toLowerCase()
+      )
+    }
+
     if (filterStore.sortOption) {
       result.sort((a, b) => {
         switch (filterStore.sortOption) {

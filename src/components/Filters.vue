@@ -1,6 +1,7 @@
 <script setup>
 import NameField from '@/components/NameField.vue'
 import GenderSelect from '@/components/GenderSelect.vue'
+import StatusSelect from '@/components/StatusSelect.vue'
 import SortSelect from '@/components/SortSelect.vue'
 </script>
 
@@ -12,6 +13,9 @@ import SortSelect from '@/components/SortSelect.vue'
       </div>
       <div class="filter-group">
         <GenderSelect />
+      </div>
+      <div class="filter-group">
+        <StatusSelect />
       </div>
       <div class="filter-group">
         <SortSelect />
@@ -31,9 +35,9 @@ import SortSelect from '@/components/SortSelect.vue'
 
 .filters-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -43,7 +47,7 @@ import SortSelect from '@/components/SortSelect.vue'
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .filters-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
