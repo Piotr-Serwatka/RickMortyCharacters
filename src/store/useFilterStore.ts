@@ -6,6 +6,8 @@ export const useFilterStore = defineStore('filters', () => {
   const gender = ref('')
   const status = ref('')
   const sortOption = ref('')
+  const showFiltersInSearch = ref(true)
+  const showFiltersInFavorites = ref(true)
 
   function resetFilters() {
     name.value = ''
@@ -14,11 +16,23 @@ export const useFilterStore = defineStore('filters', () => {
     sortOption.value = ''
   }
 
+  function toggleFiltersInSearch() {
+    showFiltersInSearch.value = !showFiltersInSearch.value
+  }
+
+  function toggleFiltersInFavorites() {
+    showFiltersInFavorites.value = !showFiltersInFavorites.value
+  }
+
   return {
     name,
     gender,
     status,
     sortOption,
+    showFiltersInSearch,
+    showFiltersInFavorites,
     resetFilters,
+    toggleFiltersInSearch,
+    toggleFiltersInFavorites,
   }
 }) 
