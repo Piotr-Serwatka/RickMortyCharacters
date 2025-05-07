@@ -4,11 +4,14 @@ import type { Character } from '@/types/Character'
 import { fetchCharacters } from '@/composables/useCharacters'
 import { useCharacterFilter } from '@/composables/useCharacterFilter'
 import { useFavorites } from '@/composables/useFavorites'
+import { usePagination } from '@/composables/usePagination'
 import Filters from '@/components/Filters.vue'
+import Pagination from '@/components/Pagination.vue'
 import CharacterCard from '@/components/CharacterCard.vue'
 
 const allCharacters = ref<Character[]>([])
 const isLoading = ref(true)
+const itemsPerPage = 12
 
 const { isFavorite, toggleFavorite, getFavoriteCharacters } = useFavorites()
 
@@ -29,6 +32,8 @@ const favoriteCharacters = computed(() => {
   return getFavoriteCharacters(filteredCharacters.value)
 })
 
+const { currentPage, paginatedItems: paginatedFavorites, totalPages, shouldShowPagination } = usePagination(favoriteCharacters, itemsPerPage)
+
 const handleToggleFavorite = (character: Character) => {
   toggleFavorite(character)
 }
@@ -47,15 +52,23 @@ const handleToggleFavorite = (character: Character) => {
       No favorite characters found matching your criteria.
     </div>
 
-    <ul v-else class="character-list">
-      <li v-for="character in favoriteCharacters" :key="character.id">
-        <CharacterCard
-          :character="character"
-          :is-favorite="true"
-          @toggle-favorite="handleToggleFavorite"
-        />
-      </li>
-    </ul>
+    <template v-else>
+      <ul class="character-list">
+        <li v-for="character in paginatedFavorites" :key="character.id">
+          <CharacterCard
+            :character="character"
+            :is-favorite="true"
+            @toggle-favorite="handleToggleFavorite"
+          />
+        </li>
+      </ul>
+
+      <Pagination
+        v-if="shouldShowPagination"
+        v-model:currentPage="currentPage"
+        :totalPages="totalPages"
+      />
+    </template>
   </div>
 </template>
 

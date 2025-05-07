@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import type { Character } from '@/types/Character'
 import { fetchCharacters } from '@/composables/useCharacters'
 import { useCharacterFilter } from '@/composables/useCharacterFilter'
 import { useFavorites } from '@/composables/useFavorites'
+import { usePagination } from '@/composables/usePagination'
 import Filters from '@/components/Filters.vue'
 import Pagination from '@/components/Pagination.vue'
 import CharacterCard from '@/components/CharacterCard.vue'
 
 const allCharacters = ref<Character[]>([])
 const isLoading = ref(true)
-const currentPage = ref(1)
 const itemsPerPage = 12
 
 const { isFavorite, toggleFavorite } = useFavorites()
@@ -28,19 +28,7 @@ onMounted(async () => {
 
 const { filteredCharacters } = useCharacterFilter(allCharacters)
 
-const paginatedCharacters = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
-  return filteredCharacters.value.slice(start, end)
-})
-
-const totalPages = computed(() => {
-  return Math.ceil(filteredCharacters.value.length / itemsPerPage)
-})
-
-watch(filteredCharacters, () => {
-  currentPage.value = 1
-})
+const { currentPage, paginatedItems: paginatedCharacters, totalPages, shouldShowPagination } = usePagination(filteredCharacters, itemsPerPage)
 
 const handleToggleFavorite = (character: Character) => {
   toggleFavorite(character)
@@ -72,6 +60,7 @@ const handleToggleFavorite = (character: Character) => {
       </ul>
 
       <Pagination
+        v-if="shouldShowPagination"
         v-model:currentPage="currentPage"
         :totalPages="totalPages"
       />
