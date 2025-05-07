@@ -1,8 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import NameField from '@/components/NameField.vue'
 import GenderSelect from '@/components/GenderSelect.vue'
 import StatusSelect from '@/components/StatusSelect.vue'
 import SortSelect from '@/components/SortSelect.vue'
+import { useFilterStore } from '@/store/useFilterStore'
+
+const filterStore = useFilterStore()
+
+const hasActiveFilters = computed(() => {
+  return filterStore.name || filterStore.gender || filterStore.status || filterStore.sortOption
+})
 </script>
 
 <template>
@@ -21,6 +29,17 @@ import SortSelect from '@/components/SortSelect.vue'
         <SortSelect />
       </div>
     </div>
+    <div class="filters-actions">
+      <button
+        v-if="hasActiveFilters"
+        type="button"
+        class="clear-filters-button"
+        @click="filterStore.resetFilters"
+      >
+        <span class="clear-icon">×</span>
+        Clear
+      </button>
+    </div>
   </form>
 </template>
 
@@ -31,6 +50,7 @@ import SortSelect from '@/components/SortSelect.vue'
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 .filters-container {
@@ -44,6 +64,43 @@ import SortSelect from '@/components/SortSelect.vue'
 .filter-group {
   display: flex;
   flex-direction: column;
+}
+
+.filters-actions {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+}
+
+.clear-filters-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #666;
+  font-size: 0.6em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+  }
+
+  &:active {
+    background: #eee;
+  }
+}
+
+.clear-icon {
+  color: #dc3545;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1;
 }
 
 /* Responsive styles */
@@ -62,6 +119,11 @@ import SortSelect from '@/components/SortSelect.vue'
   .filters-container {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .filters-actions {
+    bottom: 8px;
+    right: 8px;
   }
 }
 </style>
