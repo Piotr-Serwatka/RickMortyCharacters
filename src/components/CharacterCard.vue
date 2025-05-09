@@ -47,7 +47,9 @@ const getStatusColor = (status: string) => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
+
 .character-card {
   display: flex;
   gap: 15px;
@@ -136,8 +138,7 @@ const getStatusColor = (status: string) => {
   color: #1976d2;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
+@include max-md {
   .character-card {
     flex-direction: column;
     align-items: center;
@@ -164,7 +165,7 @@ const getStatusColor = (status: string) => {
   }
 }
 
-@media (max-width: 480px) {
+@include max-sm {
   .character-card {
     padding: 15px;
   }

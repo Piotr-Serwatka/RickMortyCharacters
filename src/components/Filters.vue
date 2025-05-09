@@ -44,6 +44,8 @@ const hasActiveFilters = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
+
 .filters {
   background: #f8f9fa;
   padding: 20px;
@@ -103,15 +105,14 @@ const hasActiveFilters = computed(() => {
   line-height: 1;
 }
 
-/* Responsive styles */
-@media (max-width: 1024px) {
+@include max-lg {
   .filters-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
 }
 
-@media (max-width: 480px) {
+@include max-sm {
   .filters {
     padding: 15px;
   }
@@ -122,8 +123,7 @@ const hasActiveFilters = computed(() => {
   }
 
   .filters-actions {
-    bottom: 8px;
-    right: 8px;
+    display: none;
   }
 }
 </style>

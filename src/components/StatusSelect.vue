@@ -18,7 +18,9 @@ const filterStore = useFilterStore()
   </label>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
+
 .filter-label {
   display: flex;
   flex-direction: column;
@@ -68,10 +70,14 @@ const filterStore = useFilterStore()
   background: rgba(25, 118, 210, 0.2);
 }
 
-@media (max-width: 480px) {
-  .filter-select {
-    padding: 12px;
-    padding-right: 32px;
+@include max-sm {
+  .status-select {
+    padding: 8px;
+  }
+
+  .status-option {
+    padding: 6px 10px;
+    font-size: 0.9em;
   }
 }
 </style> 

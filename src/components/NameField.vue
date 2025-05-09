@@ -15,7 +15,9 @@ const filterStore = useFilterStore()
   </label>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
+
 .filter-label {
   display: flex;
   flex-direction: column;
@@ -45,9 +47,13 @@ const filterStore = useFilterStore()
   color: #999;
 }
 
-@media (max-width: 480px) {
-  .filter-input {
-    padding: 12px;
+@include max-sm {
+  .name-field {
+    padding: 8px;
+  }
+
+  .name-input {
+    font-size: 0.9em;
   }
 }
 </style>
