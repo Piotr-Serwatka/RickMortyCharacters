@@ -43,7 +43,7 @@ const handleToggleFavorite = (character: Character) => {
 
 <template>
   <div class="favorites">
-    <h1>Favorite Characters</h1>
+    <h1 class="title">Favorite Characters</h1>
     
     <div class="filters-container">
       <button class="toggle-filters" @click="filterStore.toggleFiltersInFavorites">
@@ -83,7 +83,14 @@ const handleToggleFavorite = (character: Character) => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
+
+@include max-sm {
+  .title {
+    margin-bottom: 40px;
+  }
+}
 .favorites {
   padding: 20px;
 }

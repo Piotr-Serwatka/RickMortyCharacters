@@ -85,6 +85,9 @@ const getStatusColor = (status: string) => {
   color: #333;
   font-size: 1.1em;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .character-info p {
