@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Character } from '@/types/Character'
+import { ref } from 'vue'
+import BaseModal from './BaseModal.vue'
 
 const props = defineProps<{
   character: Character
@@ -9,6 +11,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'toggleFavorite', character: Character): void
 }>()
+
+const isModalOpen = ref(false)
 
 const handleToggleFavorite = () => {
   emit('toggleFavorite', props.character)
@@ -36,19 +40,26 @@ const getStatusColor = (status: string) => {
         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
       </svg>
     </button>
-    <img :src="character.image" :alt="character.name" class="character-image" />
+    <img 
+      :src="character.image" 
+      :alt="character.name" 
+      class="character-image" 
+      @click="isModalOpen = true"
+    />
     <div class="character-info">
       <h3>{{ character.name }}</h3>
-        <span class="status-dot" :style="{ backgroundColor: getStatusColor(character.status) }"></span>
-        <span class="status-text">{{ character.status }}</span>
+      <span class="status-dot" :style="{ backgroundColor: getStatusColor(character.status) }"></span>
+      <span class="status-text">{{ character.status }}</span>
       <p>Gender: {{ character.gender }}</p>
       <p>Created: {{ new Date(character.created).toLocaleDateString() }}</p>
     </div>
+
+    <BaseModal v-model="isModalOpen" :character="character" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_mixins.scss';
+@use '@/assets/styles/_mixins.scss' as *;
 
 .character-card {
   display: flex;
@@ -73,6 +84,38 @@ const getStatusColor = (status: string) => {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 2px solid #e5e7eb;
+  position: relative;
+  animation: pulse 2s infinite;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 85, 255, 0.281);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(229, 231, 235, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 231, 235, 0.7);
+  }
 }
 
 .character-info {

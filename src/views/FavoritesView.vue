@@ -84,7 +84,7 @@ const handleToggleFavorite = (character: Character) => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_mixins.scss';
+@use '@/assets/styles/_mixins.scss' as *;
 
 @include max-sm {
   .title {

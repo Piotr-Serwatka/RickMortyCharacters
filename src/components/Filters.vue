@@ -44,7 +44,7 @@ const hasActiveFilters = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_mixins.scss';
+@use '@/assets/styles/_mixins.scss' as *;
 
 .filters {
   background: #f8f9fa;
