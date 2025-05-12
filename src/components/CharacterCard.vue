@@ -86,9 +86,35 @@ const getStatusColor = (status: string) => {
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.2s ease;
+  border: 2px solid #e5e7eb;
+  position: relative;
+  animation: pulse 2s infinite;
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 85, 255, 0.281);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(229, 231, 235, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 231, 235, 0.7);
   }
 }
 
