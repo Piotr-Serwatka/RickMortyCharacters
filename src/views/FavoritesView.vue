@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import type { Character } from '@/types/Character'
-import { fetchCharacters } from '@/composables/useCharacters'
+import { fetchCharacters } from '@/services/api/useCharacters'
 import { useCharacterFilter } from '@/composables/useCharacterFilter'
 import { useFavorites } from '@/composables/useFavorites'
 import { usePagination } from '@/composables/usePagination'

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import type { Character } from '@/types/Character'
+import rickAndMotyAPIEndpoints from './endpoints';
 
-const API_URL = 'https://rickandmortyapi.com/api/character';
+const API_URL = rickAndMotyAPIEndpoints.characters;
 
 export async function fetchCharacters ()  {
   const cache = localStorage.getItem('characters');
