@@ -30,7 +30,6 @@ export async function fetchCharacters ()  {
       res.data.results.map((character: Character) => ({
         ...character,
         isFavorite: false,
-        isFired: false,
       }))
     );
 

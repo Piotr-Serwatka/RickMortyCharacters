@@ -20,7 +20,7 @@ const filterStore = useFilterStore()
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_mixins.scss';
+@use '@/assets/styles/_mixins.scss' as *;
 
 .filter-label {
   display: flex;

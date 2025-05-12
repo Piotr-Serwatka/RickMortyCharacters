@@ -18,5 +18,4 @@ export interface Character {
   url: string;
   created: string;
   isFavorite?: boolean;
-  isFired?: boolean;
 }
