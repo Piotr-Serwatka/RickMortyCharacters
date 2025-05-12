@@ -1,16 +1,16 @@
-<template>
-  <div class="detail-item">
-    <span class="detail-label">{{ label }}</span>
-    <span class="detail-value">{{ value }}</span>
-  </div>
-</template>
-
 <script setup lang="ts">
 defineProps<{
   label: string
   value: string
 }>()
 </script>
+
+<template>
+  <div class="detail-item">
+    <span class="detail-label">{{ label }}</span>
+    <span class="detail-value">{{ value }}</span>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 

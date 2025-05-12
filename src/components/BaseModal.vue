@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import type { Character } from '@/types/Character'
+import DetailItem from './DetailItem.vue'
+
+defineProps<{
+  modelValue: boolean
+  character: Character
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
+
+const closeModal = () => {
+  emit('update:modelValue', false)
+}
+</script>
+
 <template>
   <Teleport to="body">
     <Transition name="modal">
@@ -32,24 +50,6 @@
     </Transition>
   </Teleport>
 </template>
-
-<script setup lang="ts">
-import type { Character } from '@/types/Character'
-import DetailItem from './DetailItem.vue'
-
-defineProps<{
-  modelValue: boolean
-  character: Character
-}>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
-
-const closeModal = () => {
-  emit('update:modelValue', false)
-}
-</script>
 
 <style lang="scss" scoped>
 @use '@/assets/styles/_mixins.scss' as *;
