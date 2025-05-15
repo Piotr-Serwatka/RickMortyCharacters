@@ -23,7 +23,6 @@ defineProps<{
 .detail-label {
   font-size: 0.875rem;
   color: #6b7280;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
