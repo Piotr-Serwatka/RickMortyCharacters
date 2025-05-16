@@ -38,12 +38,5 @@ Anti-patterns to Avoid:
 2.Avoid mixing multiple state management approaches
 3.Do not overload components with business logic
 4.Avoid deeply nested component hierarchies
+
 5.Do not place business logic inside components — move it to services
-
-Problem-Solving Approach:
-1.Check the official Vue documentation first
-2.Break down the problem into smaller, manageable parts
-3.Use TypeScript for type safety
-4.Prefer declarative over imperative code
-
-5.Consider performance early, not just as a later optimization

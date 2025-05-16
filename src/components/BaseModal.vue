@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Character } from '@/types/Character'
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
+import type { Component } from 'vue'
 import Tabs from './tabs/Tabs.vue'
 import TabButton from './tabs/TabButton.vue'
 import BasicInfoTab from './tabs/BasicInfoTab.vue'
@@ -9,7 +10,13 @@ import EpisodesTab from './tabs/EpisodesTab.vue'
 
 const modelValue = defineModel<boolean>()
 const expandedModal = ref(false)
-const activeTab = ref('basic')
+const activeTab = ref<'basic' | 'location' | 'episodes'>('basic')
+
+const tabComponents: Record<'basic' | 'location' | 'episodes', Component> = {
+  basic: markRaw(BasicInfoTab),
+  location: markRaw(LocationTab),
+  episodes: markRaw(EpisodesTab)
+}
 
 const closeModal = () => {
   modelValue.value = false
@@ -63,7 +70,6 @@ defineProps<{
                     :setActiveTab="setActiveTab"
                     :isDisabled="true"
                   />
-                  
                   <TabButton 
                     tab="episodes" 
                     label="Episodes (comming soon)" 
@@ -72,15 +78,10 @@ defineProps<{
                     :isDisabled="true"
                   />
                 </template>
-                <template v-if="activeTab === 'basic'">
-                  <BasicInfoTab :character="character" />
-                </template>
-                <template v-if="activeTab === 'location'">
-                  <LocationTab :character="character" />
-                </template>
-                <template v-if="activeTab === 'episodes'">
-                  <EpisodesTab :character="character" />
-                </template>
+                <component 
+                  :is="tabComponents[activeTab]" 
+                  :character="character"
+                />
               </Tabs>
             </div>
           </div>
