@@ -116,15 +116,15 @@ defineProps<{
   position: relative;
   width: 100%;
   max-width: 32rem;
-  height: min(90vh, 600px);
+  height: min(70vh, 630px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: all 0.3s ease;
 
   &.expanded {
-    max-width: 64rem;
-    height: min(90vh, 800px);
+    max-width: 48rem;
+    height: min(80vh, 800px);
   }
 }
 
