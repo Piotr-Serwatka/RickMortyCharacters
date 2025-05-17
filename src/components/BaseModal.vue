@@ -75,7 +75,7 @@ defineProps<{
                     label="Episodes (comming soon)" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="false"
+                    :isDisabled="true"
                   />
                 </template>
                 <keep-alive>
