@@ -65,23 +65,25 @@ defineProps<{
                   />
                   <TabButton 
                     tab="location" 
-                    label="Location (coming soon)" 
+                    label="Location" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="true"
+                    :isDisabled="false"
                   />
                   <TabButton 
                     tab="episodes" 
                     label="Episodes (comming soon)" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="true"
+                    :isDisabled="false"
                   />
                 </template>
-                <component 
-                  :is="tabComponents[activeTab]" 
-                  :character="character"
-                />
+                <keep-alive>
+                  <component 
+                    :is="tabComponents[activeTab]" 
+                    :character="character"
+                  />
+                </keep-alive>
               </Tabs>
             </div>
           </div>
