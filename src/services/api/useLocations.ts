@@ -1,21 +1,7 @@
 import axios from 'axios';
 import { ref, computed } from 'vue';
 import type { Character } from '@/types/Character';
-
-export interface Location {
-  id: number;
-  name: string;
-  type: string;
-  dimension: string;
-  residents: string[];
-  url: string;
-  created: string;
-}
-
-export interface LocationInfo {
-  label: string;
-  value: string;
-}
+import type { Location, LocationInfo } from '@/types/Location';
 
 export async function fetchLocation(locationURL: string): Promise<Location | null> {
   try {
