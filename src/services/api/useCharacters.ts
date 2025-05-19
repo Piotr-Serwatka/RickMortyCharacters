@@ -17,7 +17,6 @@ export async function fetchCharacters ()  {
     }
   }
 
-  // Jeśli brak cache, pobieramy 4 strony
   const pagesToFetch = [1, 2, 3, 4];
   const promises = pagesToFetch.map(page =>
     axios.get(`${API_URL}?page=${page}`)

@@ -4,7 +4,6 @@ import type { Character } from '@/types/Character'
 const FAVORITES_KEY = 'rick-and-morty-favorites'
 const favorites = ref<number[]>([])
 
-// Load favorites from localStorage on initialization
 const loadFavorites = () => {
   const stored = localStorage.getItem(FAVORITES_KEY)
   if (stored) {
@@ -12,12 +11,10 @@ const loadFavorites = () => {
   }
 }
 
-// Save favorites to localStorage whenever they change
 watch(favorites, (newFavorites) => {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites))
 }, { deep: true })
 
-// Initialize favorites
 loadFavorites()
 
 export const useFavorites = () => {

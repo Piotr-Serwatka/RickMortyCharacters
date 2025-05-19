@@ -19,7 +19,6 @@ export function usePagination<T>(items: T[] | ComputedRef<T[]>, itemsPerPage: nu
     return totalPages.value > 1
   })
 
-  // Reset to page 1 when items change
   watch(items, (newItems, oldItems) => {
     const newItemsArray = isRef(newItems) ? newItems.value : newItems
     const oldItemsArray = isRef(oldItems) ? oldItems.value : oldItems
