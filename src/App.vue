@@ -4,13 +4,15 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="app">
-    <nav class="tabs">
+    <div class="wrapper">
+      <nav class="tabs">
       <RouterLink to="/search" class="tab">Character Search</RouterLink>
       <RouterLink to="/favorites" class="tab">Favorites</RouterLink>
     </nav>
     <main>
       <RouterView />
     </main>
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,6 @@ import { RouterLink, RouterView } from 'vue-router'
   margin: 0 auto;
   padding: 20px;
 }
-
 .tabs {
   display: flex;
   gap: 20px;

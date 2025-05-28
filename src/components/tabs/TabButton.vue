@@ -6,7 +6,6 @@ const props = defineProps<{
   label: string
   activeTab: string
   setActiveTab: (tab: string) => void
-  isDisabled?: boolean
 }>()
 
 const isActive = computed(() => props.activeTab === props.tab)
@@ -20,7 +19,6 @@ const handleClick = () => {
   <button 
     class="tab-button" 
     :class="{ active: isActive }"
-    :disabled="isDisabled"
     @click="handleClick"
   >
     {{ label }}
