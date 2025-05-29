@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Character } from '@/types/Character'
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { useEpisodes } from '@/services/api/useEpisodes'
 import Accordion from '@/components/Accordion.vue'
 
@@ -8,8 +8,8 @@ const props = defineProps<{
   character: Character
 }>()
 
-const episodeCache = ref<Map<string, any>>(new Map())
-const loadingEpisodes = ref<Set<string>>(new Set())
+const episodeCache = reactive<Record<string, any>>({});
+const loadingEpisodes = reactive<Record<string, boolean>>({});
 const { fetchEpisode, error, episodeInfo } = useEpisodes()
 
 const getEpisodeNumber = (url: string) => {
@@ -17,18 +17,20 @@ const getEpisodeNumber = (url: string) => {
 }
 
 const handleGetInfo = async (url: string) => {
-  if (episodeCache.value.has(url)) return
+  if (episodeCache[url] || loadingEpisodes[url]) return
 
-  loadingEpisodes.value.add(url)
+  loadingEpisodes[url] = true
   await fetchEpisode(url)
+
   if (episodeInfo.value) {
-    episodeCache.value.set(url, episodeInfo.value)
+    episodeCache[url] = episodeInfo.value;
   }
-  loadingEpisodes.value.delete(url)
+
+  loadingEpisodes[url] = false;
 }
 
 const getDataForAccordion = (episodeUrl: string) => {
-  const episode = episodeCache.value.get(episodeUrl)
+  const episode = episodeCache[episodeUrl]
   if (episode) {
     return [
       { label: "Air Date", value: new Date(episode.air_date).toLocaleDateString() },
@@ -45,13 +47,14 @@ const getDataForAccordion = (episodeUrl: string) => {
     <div v-for="episodeUrl in character.episode" :key="episodeUrl" class="episode-item">
       <div class="episode-header">
         <span class="episode-number">Episode {{ getEpisodeNumber(episodeUrl) }}</span>
-        <button v-if="!episodeCache.has(episodeUrl)" class="get-info-button" @click="handleGetInfo(episodeUrl)"
-          :disabled="loadingEpisodes.has(episodeUrl) || episodeCache.has(episodeUrl)">
-          {{ loadingEpisodes.has(episodeUrl) ? 'Loading...' : 'Get info' }}
+        <button v-if="!episodeCache[episodeUrl]" class="get-info-button" @click="handleGetInfo(episodeUrl)"
+          :disabled="loadingEpisodes[episodeUrl]">
+          {{ loadingEpisodes[episodeUrl] ? 'Loading...' : 'Get info' }}
         </button>
       </div>
 
-      <Accordion v-if="episodeCache.has(episodeUrl)" :data="getDataForAccordion(episodeUrl) || []" :title="episodeCache.get(episodeUrl).name" />
+      <Accordion v-if="episodeCache[episodeUrl]" :data="getDataForAccordion(episodeUrl) || []"
+        :title="episodeCache[episodeUrl].name" />
     </div>
 
     <div v-if="error" class="error-message">
