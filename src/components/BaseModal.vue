@@ -61,21 +61,18 @@ defineProps<{
                     label="Basic Info" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="false"
                   />
                   <TabButton 
                     tab="location" 
                     label="Location" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="false"
                   />
                   <TabButton 
                     tab="episodes" 
-                    label="Episodes (comming soon)" 
+                    label="Episodes" 
                     :activeTab="activeTab"
                     :setActiveTab="setActiveTab"
-                    :isDisabled="true"
                   />
                 </template>
                 <keep-alive>
